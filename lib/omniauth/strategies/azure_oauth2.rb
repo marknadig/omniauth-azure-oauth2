@@ -17,11 +17,17 @@ module OmniAuth
       args [:tenant_provider]
 
       def client
-        # Fold on options from dynamic tenant provider
-        options.client_id = options.tenant_provider.client_id
-        options.client_secret = options.tenant_provider.client_secret
-        options.tenant_id = options.tenant_provider.tenant_id
+        if options.tenant_provider
+          provider = options.tenant_provider.new(self)
+        else
+          provider = options  # if pass has to config, get mapped right on to ptions
+        end
 
+        options.client_id = provider.client_id
+        options.client_secret = provider.client_secret
+        options.tenant_id = provider.tenant_id
+
+        options.authorize_params.domain_hint = provider.domain_hint if provider.respond_to?(:domain_hint) && provider.domain_hint
         options.client_options.authorize_url = "#{BASE_AZURE_URL}/#{options.tenant_id}/oauth2/authorize"
         options.client_options.token_url = "#{BASE_AZURE_URL}/#{options.tenant_id}/oauth2/token"
 

@@ -29,24 +29,51 @@ Note: Seems like the terminology is still fluid, so follow the MS guidance (buwa
 
 ```ruby
 use OmniAuth::Builder do
-  provider :azure, YourTentProvider
+  provider :azure, TenantInfo
 end
 ```
 
-The TenantProvider class must provide client_id, client_secret and tenant_id. For a simple single-tenant app, this could be:
+The TenantInfo information can be a hash or class. It must provide client_id, client_secret and tenant_id.
+Optionally a domain_hint. For a simple single-tenant app, this could be:
 
 ```ruby
+{
+  client_id: ENV['AZURE_CLIENT_ID'],
+  client_secret: ENV['AZURE_CLIENT_ID'],
+  tenant_id: ENV['AZURE_TENANT_ID']
+}
+```
+
+For dynamic tenant assignment, pass a class that supports those same attributes and accepts the strategy as a parameter
+
+# or
+
 class YouTenantProvider
-  def self.client_id
-    ENV['AZURE_CLIENT_ID']
+  def initialize(strategy)
+    @strategy = strategy
   end
 
-  def self.client_secret
-    ENV['AZURE_CLIENT_SECRET']
+  def client_id
+    tenant.azure_client_id
   end
 
-  def self.tenant_id
-    ENV['AZURE_TENANT_ID']
+  def client_secret
+    tenant.azure_client_secret
+  end
+
+  def tenant_id
+    tenant.azure_tanant_id
+  end
+
+  def domain_hint
+    tenant.azure_domain_hint
+  end
+
+  private
+
+  def tenant
+    # whatever strategy you want to figure out the right tenant from params/session
+    @tenant ||= Customer.find(@strategy.session[:customer_id])
   end
 end
 ```
