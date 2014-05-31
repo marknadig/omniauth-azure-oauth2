@@ -27,10 +27,7 @@ https://example.com/users/auth/azure_oauth2/callback. The APP ID UI just needs t
 your site and isn't needed to configure the gem.
 Permissions need Delegated Permissions to at least have "Enable sign-on and read user's profiles".
 
-You will need the CLIENT-ID, client secret (key), tenant id to configure the omniauth-azure-oauth2 gem.
-
 Note: Seems like the terminology is still fluid, so follow the MS guidance (buwahaha) to set this up.
-
 
 The TenantInfo information can be a hash or class. It must provide client_id, client_secret and tenant_id.
 Optionally a domain_hint. For a simple single-tenant app, this could be:
@@ -91,14 +88,14 @@ The following information is provided back to you for this provider:
 {
   uid: '12345',
   info: {
-    name: 'some one', # may be email
+    name: 'some one',
     first_name: 'some',
     last_name: 'one',
     email: 'someone@example.com'
   },
   credentials: {
-    token: 'thetoken', # can be used to auth to the API
-    refresh_token: 'refresh' # can be used refresh the token
+    token: 'thetoken',
+    refresh_token: 'refresh'
   },
   extra: { raw_info: raw_api_response }
 }
@@ -118,6 +115,7 @@ end
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes and tests  (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+3. Make your changes, add tests, run tests (`rake`)
+4. Commit your changes and tests  (`git commit -am 'Added some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
