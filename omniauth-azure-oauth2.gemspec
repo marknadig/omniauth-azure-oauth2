@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["mark@nadigs.net"]
   gem.description   = %q{An Windows Azure Active Directory OAuth2 strategy for OmniAuth}
   gem.summary       = %q{An Windows Azure Active Directory OAuth2 strategy for OmniAuth}
-  gem.homepage      = "https://github.com/KonaTeam/stragetgies"
+  gem.homepage      = "https://github.com/KonaTeam/omniauth-azure-oauth2"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
