@@ -53,6 +53,22 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
   end
 
+  describe 'static common configuration' do
+    let(:options) { @options || {} }
+    subject do
+      OmniAuth::Strategies::AzureOauth2.new(app, {client_id: 'id', client_secret: 'secret'}.merge(options))
+    end
+
+    describe '#client' do
+      it 'has correct authorize url' do
+        expect(subject.client.options[:authorize_url]).to eql('https://login.windows.net/common/oauth2/authorize')
+      end
+
+      it 'has correct token url' do
+        expect(subject.client.options[:token_url]).to eql('https://login.windows.net/common/oauth2/token')
+      end
+    end
+  end
 
   describe 'dynamic configuration' do
     let(:provider_klass) {
@@ -108,5 +124,36 @@ describe OmniAuth::Strategies::AzureOauth2 do
       # end
     end
 
+  end
+  
+  describe 'dynamic common configuration' do
+    let(:provider_klass) {
+      Class.new {
+        def initialize(strategy)
+        end
+
+        def client_id
+          'id'
+        end
+
+        def client_secret
+          'secret'
+        end
+      }
+    }
+
+    subject do
+      OmniAuth::Strategies::AzureOauth2.new(app, provider_klass)
+    end
+
+    describe '#client' do
+      it 'has correct authorize url' do
+        expect(subject.client.options[:authorize_url]).to eql('https://login.windows.net/common/oauth2/authorize')
+      end
+
+      it 'has correct token url' do
+        expect(subject.client.options[:token_url]).to eql('https://login.windows.net/common/oauth2/token')
+      end
+    end
   end
 end
