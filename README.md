@@ -29,16 +29,36 @@ Permissions need Delegated Permissions to at least have "Enable sign-on and read
 
 Note: Seems like the terminology is still fluid, so follow the MS guidance (buwahaha) to set this up.
 
-The TenantInfo information can be a hash or class. It must provide client_id, client_secret and tenant_id.
-Optionally a domain_hint. For a simple single-tenant app, this could be:
+The TenantInfo information can be a hash or class. It must provide client_id and client_secret.
+Optionally a domain_hint and tenant_id. For a simple single-tenant app, this could be:
 
 ```ruby
 use OmniAuth::Builder do
   provider :azure_oauth2,
     {
       client_id: ENV['AZURE_CLIENT_ID'],
-      client_secret: ENV['AZURE_CLIENT_ID'],
+      client_secret: ENV['AZURE_CLIENT_SECRET'],
       tenant_id: ENV['AZURE_TENANT_ID']
+    }
+end
+```
+
+Or the alternative format for use with [devise](https://github.com/plataformatec/devise):
+
+```ruby
+config.omniauth :azure_oauth2, client_id: ENV['AZURE_CLIENT_ID'],
+      client_secret: ENV['AZURE_CLIENT_SECRET'], tenant_id: ENV['AZURE_TENANT_ID']
+```
+
+For multi-tenant apps where you don't know the tenant_id in advance, simply leave out the tenant_id to use the 
+[common endpoint](http://msdn.microsoft.com/en-us/library/azure/dn645542.aspx).
+
+```ruby
+use OmniAuth::Builder do
+  provider :azure_oauth2,
+    {
+      client_id: ENV['AZURE_CLIENT_ID'],
+      client_secret: ENV['AZURE_CLIENT_SECRET']
     }
 end
 ```
