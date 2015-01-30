@@ -1,6 +1,12 @@
 require 'spec_helper'
 require 'omniauth-azure-oauth2'
 
+module OmniAuth
+  module Strategies
+    module JWT; end
+  end
+end
+
 describe OmniAuth::Strategies::AzureOauth2 do
   let(:request) { double('Request', :params => {}, :cookies => {}, :env => {}) }
   let(:app) {
@@ -125,7 +131,7 @@ describe OmniAuth::Strategies::AzureOauth2 do
     end
 
   end
-  
+
   describe 'dynamic common configuration' do
     let(:provider_klass) {
       Class.new {
@@ -154,6 +160,30 @@ describe OmniAuth::Strategies::AzureOauth2 do
       it 'has correct token url' do
         expect(subject.client.options[:token_url]).to eql('https://login.windows.net/common/oauth2/token')
       end
+    end
+  end
+
+  describe "raw_info" do
+    subject do
+      OmniAuth::Strategies::AzureOauth2.new(app, {client_id: 'id', client_secret: 'secret'})
+    end
+
+    let(:token) do
+      JWT.encode({"some" => "payload"}, "secret")
+    end
+
+    let(:access_token) do
+      double(:token => token)
+    end
+
+    before :each do
+      allow(subject).to receive(:access_token) { access_token }
+    end
+
+    it "does not clash if JWT strategy is used" do
+      expect do
+        subject.info
+      end.to_not raise_error
     end
   end
 end
