@@ -42,7 +42,8 @@ module OmniAuth
 
       info do
         {
-          name: raw_info['unique_name'],
+          name: raw_info['name'],
+          nickname: raw_info['unique_name'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
           email: raw_info['email'] || raw_info['upn'],
