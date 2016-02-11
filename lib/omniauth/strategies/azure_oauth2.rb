@@ -4,7 +4,7 @@ require 'jwt'
 module OmniAuth
   module Strategies
     class AzureOauth2 < OmniAuth::Strategies::OAuth2
-      BASE_AZURE_URL = 'https://login.windows.net'
+      BASE_AZURE_URL = 'https://login.microsoftonline.com'
 
       option :name, 'azure_oauth2'
 
