@@ -1,4 +1,5 @@
 # OmniAuth Windows Azure Active Directory Strategy
+[![Build Status](https://travis-ci.org/KonaTeam/omniauth-azure-oauth2.svg?branch=master)](https://travis-ci.org/KonaTeam/omniauth-azure-oauth2)
 
 This gem provides a simple way to authenticate to Windows Azure Active Directory (WAAD) over OAuth2 using OmniAuth.
 
