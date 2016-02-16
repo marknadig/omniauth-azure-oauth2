@@ -31,7 +31,7 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
     describe '#client' do
       it 'has correct authorize url' do
-        expect(subject.client.options[:authorize_url]).to eql('https://login.windows.net/tenant/oauth2/authorize')
+        expect(subject.client.options[:authorize_url]).to eql('https://login.microsoftonline.com/tenant/oauth2/authorize')
       end
 
       it 'has correct authorize params' do
@@ -40,7 +40,7 @@ describe OmniAuth::Strategies::AzureOauth2 do
       end
 
       it 'has correct token url' do
-        expect(subject.client.options[:token_url]).to eql('https://login.windows.net/tenant/oauth2/token')
+        expect(subject.client.options[:token_url]).to eql('https://login.microsoftonline.com/tenant/oauth2/token')
       end
 
       it 'has correct token params' do
@@ -67,11 +67,11 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
     describe '#client' do
       it 'has correct authorize url' do
-        expect(subject.client.options[:authorize_url]).to eql('https://login.windows.net/common/oauth2/authorize')
+        expect(subject.client.options[:authorize_url]).to eql('https://login.microsoftonline.com/common/oauth2/authorize')
       end
 
       it 'has correct token url' do
-        expect(subject.client.options[:token_url]).to eql('https://login.windows.net/common/oauth2/token')
+        expect(subject.client.options[:token_url]).to eql('https://login.microsoftonline.com/common/oauth2/token')
       end
     end
   end
@@ -103,7 +103,7 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
     describe '#client' do
       it 'has correct authorize url' do
-        expect(subject.client.options[:authorize_url]).to eql('https://login.windows.net/tenant/oauth2/authorize')
+        expect(subject.client.options[:authorize_url]).to eql('https://login.microsoftonline.com/tenant/oauth2/authorize')
       end
 
       it 'has correct authorize params' do
@@ -112,7 +112,7 @@ describe OmniAuth::Strategies::AzureOauth2 do
       end
 
       it 'has correct token url' do
-        expect(subject.client.options[:token_url]).to eql('https://login.windows.net/tenant/oauth2/token')
+        expect(subject.client.options[:token_url]).to eql('https://login.microsoftonline.com/tenant/oauth2/token')
       end
 
       it 'has correct token params' do
@@ -154,11 +154,11 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
     describe '#client' do
       it 'has correct authorize url' do
-        expect(subject.client.options[:authorize_url]).to eql('https://login.windows.net/common/oauth2/authorize')
+        expect(subject.client.options[:authorize_url]).to eql('https://login.microsoftonline.com/common/oauth2/authorize')
       end
 
       it 'has correct token url' do
-        expect(subject.client.options[:token_url]).to eql('https://login.windows.net/common/oauth2/token')
+        expect(subject.client.options[:token_url]).to eql('https://login.microsoftonline.com/common/oauth2/token')
       end
     end
   end
