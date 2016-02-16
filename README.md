@@ -140,6 +140,8 @@ end
 5. Push to the branch (`git push origin my-new-feature`)
 6. Create new Pull Request
 
+
 ## Misc
 Run tests `bundle exec rake`  
-Push to rubygems `bundle exec rake release`. 
+Push to rubygems `bundle exec rake release`.
+ 
