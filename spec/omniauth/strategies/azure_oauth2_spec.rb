@@ -31,19 +31,23 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
     describe '#client' do
       it 'has correct authorize url' do
+        allow(subject).to receive(:request) { request }
         expect(subject.client.options[:authorize_url]).to eql('https://login.microsoftonline.com/tenant/oauth2/authorize')
       end
 
       it 'has correct authorize params' do
+        allow(subject).to receive(:request) { request }
         subject.client
         expect(subject.authorize_params[:domain_hint]).to be_nil
       end
 
       it 'has correct token url' do
+        allow(subject).to receive(:request) { request }
         expect(subject.client.options[:token_url]).to eql('https://login.microsoftonline.com/tenant/oauth2/token')
       end
 
       it 'has correct token params' do
+        allow(subject).to receive(:request) { request }
         subject.client
         expect(subject.token_params[:resource]).to eql('00000002-0000-0000-c000-000000000000')
       end
@@ -51,6 +55,7 @@ describe OmniAuth::Strategies::AzureOauth2 do
       describe "overrides" do
         it 'should override domain_hint' do
           @options = {domain_hint: 'hint'}
+          allow(subject).to receive(:request) { request }
           subject.client
           expect(subject.authorize_params[:domain_hint]).to eql('hint')
         end
@@ -63,6 +68,10 @@ describe OmniAuth::Strategies::AzureOauth2 do
     let(:options) { @options || {} }
     subject do
       OmniAuth::Strategies::AzureOauth2.new(app, {client_id: 'id', client_secret: 'secret'}.merge(options))
+    end
+
+    before do
+      allow(subject).to receive(:request) { request }
     end
 
     describe '#client' do
@@ -99,6 +108,10 @@ describe OmniAuth::Strategies::AzureOauth2 do
 
     subject do
       OmniAuth::Strategies::AzureOauth2.new(app, provider_klass)
+    end
+
+    before do
+      allow(subject).to receive(:request) { request }
     end
 
     describe '#client' do
@@ -152,6 +165,10 @@ describe OmniAuth::Strategies::AzureOauth2 do
       OmniAuth::Strategies::AzureOauth2.new(app, provider_klass)
     end
 
+    before do
+      allow(subject).to receive(:request) { request }
+    end
+
     describe '#client' do
       it 'has correct authorize url' do
         expect(subject.client.options[:authorize_url]).to eql('https://login.microsoftonline.com/common/oauth2/authorize')
@@ -176,8 +193,9 @@ describe OmniAuth::Strategies::AzureOauth2 do
       double(:token => token)
     end
 
-    before :each do
+    before do
       allow(subject).to receive(:access_token) { access_token }
+      allow(subject).to receive(:request) { request }
     end
 
     it "does not clash if JWT strategy is used" do
