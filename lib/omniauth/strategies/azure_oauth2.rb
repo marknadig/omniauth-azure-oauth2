@@ -25,7 +25,7 @@ module OmniAuth
 
         options.client_id = provider.client_id
         options.client_secret = provider.client_secret
-        options.tenant_id = 
+        options.tenant_id =
           provider.respond_to?(:tenant_id) ? provider.tenant_id : 'common'
 
         options.authorize_params.domain_hint = provider.domain_hint if provider.respond_to?(:domain_hint) && provider.domain_hint
@@ -53,6 +53,9 @@ module OmniAuth
         }
       end
 
+      def callback_url
+        full_host + script_name + callback_path
+      end
 
       def raw_info
         # it's all here in JWT http://msdn.microsoft.com/en-us/library/azure/dn195587.aspx
