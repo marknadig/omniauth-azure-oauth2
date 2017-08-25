@@ -101,6 +101,9 @@ use OmniAuth::Builder do
 end
 ```
 
+The base_azure_url can be overridden in the provider configuration for different locales; e.g. `base_azure_url: "https://login.microsoftonline.de"`
+
+
 ## Auth Hash Schema
 
 The following information is provided back to you for this provider:
