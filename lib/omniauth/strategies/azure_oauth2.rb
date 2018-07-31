@@ -27,9 +27,10 @@ module OmniAuth
         options.client_secret = provider.client_secret
         options.tenant_id =
           provider.respond_to?(:tenant_id) ? provider.tenant_id : 'common'
-        options.base_azure_url = 
+        options.base_azure_url =
           provider.respond_to?(:base_azure_url) ? provider.base_azure_url : BASE_AZURE_URL
 
+        options.authorize_params = provider.authorize_params if provider.respond_to?(:authorize_params)
         options.authorize_params.domain_hint = provider.domain_hint if provider.respond_to?(:domain_hint) && provider.domain_hint
         options.authorize_params.prompt = request.params['prompt'] if request.params['prompt']
         options.client_options.authorize_url = "#{options.base_azure_url}/#{options.tenant_id}/oauth2/authorize"
@@ -52,7 +53,7 @@ module OmniAuth
           tid: raw_info['tid']
         }
       end
-      
+
       def token_params
         azure_resource = request.env['omniauth.params'] && request.env['omniauth.params']['azure_resource']
         super.merge(resource: azure_resource || options.resource)
