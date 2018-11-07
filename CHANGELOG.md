@@ -1,4 +1,7 @@
 # Version 0.0.9
+* Expand JWT dep. Thanks @ronaldsalas
+
+# Version 0.0.9
 * Added support for dynamic tenant urls. Thanks @marcus-fellinger-esc
 
 # Version 0.0.8
