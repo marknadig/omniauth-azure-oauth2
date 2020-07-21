@@ -1,3 +1,6 @@
+# No longer maintained
+This project is no longer maintained. I'm off on other projects on other platforms and don't have time to maintain this gem :/ I am unable to transfer the project ownership. Your best bet is to fork and apply your changes. Perhaps consider publishing to RubyGems yourself so it can live on. 
+
 # OmniAuth Windows Azure Active Directory Strategy
 [![Build Status](https://travis-ci.org/KonaTeam/omniauth-azure-oauth2.svg?branch=master)](https://travis-ci.org/KonaTeam/omniauth-azure-oauth2)
 
